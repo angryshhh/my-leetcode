@@ -11,29 +11,50 @@
  * @return {number}
  */
 var minSubArrayLen = function(s, nums) {
-  let i = 0, j = 0;
-  let sum = 0;
-  let min = nums.length;
-  while (j < nums.length) {
-    while (sum < s && j < nums.length) {
-      sum += nums[j];
-      j++;
-    }
+  // let i = 0, j = 0;
+  // let sum = 0;
+  // let min = nums.length;
+  // while (j < nums.length) {
+  //   while (sum < s && j < nums.length) {
+  //     sum += nums[j];
+  //     j++;
+  //   }
 
+  //   if (sum < s) {
+  //     if (min === nums.length) return 0;
+  //     else return min;
+  //   }
+  //   min = Math.min(min, j - i);
+  //   sum -= nums[i];
+  //   i++;
+  // }
+  // while (sum >= s) {
+  //   sum -= nums[i];
+  //   i++;
+  // }
+  // min = Math.min(min, j - i + 1);
+  // return min;
+
+  let start = 0, end = 0;
+  let sum = 0;
+  let minLen = 0;
+
+  while (end <= nums.length) {
     if (sum < s) {
-      if (min === nums.length) return 0;
-      else return min;
+      sum += nums[end];
+      end++;
+    } else {
+      if (minLen === 0) {
+        minLen = end - start;
+      } else {
+        minLen = Math.min(end - start, minLen);
+      }
+      sum -= nums[start];
+      start++;
     }
-    min = Math.min(min, j - i);
-    sum -= nums[i];
-    i++;
   }
-  while (sum >= s) {
-    sum -= nums[i];
-    i++;
-  }
-  min = Math.min(min, j - i + 1);
-  return min;
+
+  return minLen;
 };
 // @lc code=end
 
