@@ -37,27 +37,46 @@
  * @return {ListNode}
  */
 var mergeTwoLists = function(l1, l2) {
-  let result = new ListNode(0);
-  let list = result;
+  // let result = new ListNode(0);
+  // let list = result;
   
-  while (l1 || l2) {
-    if (!l1) {
-      list.next = l2;
-      l2 = null;
-    } else if(!l2) {
-      list.next = l1;
-      l1 = null;
+  // while (l1 || l2) {
+  //   if (!l1) {
+  //     list.next = l2;
+  //     l2 = null;
+  //   } else if(!l2) {
+  //     list.next = l1;
+  //     l1 = null;
+  //   } else {
+  //     if (l1.val < l2.val) {
+  //       list.next = l1;
+  //       l1 = l1.next;
+  //       list = list.next;
+  //     } else {
+  //       list.next = l2;
+  //       l2 = l2.next;
+  //       list = list.next;
+  //     }
+  //   }
+  // }
+  // return result.next;
+  let result = new ListNode(0);
+  let p = result;
+  while (l1 && l2) {
+    if (l1.val < l2.val) {
+      p.next = l1;
+      l1 = l1.next;
     } else {
-      if (l1.val < l2.val) {
-        list.next = l1;
-        l1 = l1.next;
-        list = list.next;
-      } else {
-        list.next = l2;
-        l2 = l2.next;
-        list = list.next;
-      }
+      p.next = l2;
+      l2 = l2.next;
     }
+    p = p.next;
+    p.next = null;
+  }
+  if (l1) {
+    p.next = l1;
+  } else {
+    p.next = l2;
   }
   return result.next;
 };

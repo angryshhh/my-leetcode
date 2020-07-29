@@ -68,25 +68,40 @@
 // };
 
 var removeNthFromEnd = function(head, n) {
-  let a = new ListNode(0), b = head;
-  a.next = head;
-  let step = 0;
-  while (b) {
-    b = b.next;
-    if (step < n) {
-      step++;
-    } else {
-      a = a.next;
-    }
+  // let a = new ListNode(0), b = head;
+  // a.next = head;
+  // let step = 0;
+  // while (b) {
+  //   b = b.next;
+  //   if (step < n) {
+  //     step++;
+  //   } else {
+  //     a = a.next;
+  //   }
+  // }
+  // if (step < n) {
+  //   return head;
+  // } else if (a.next === head) {
+  //   return head.next;
+  // } else {
+  //   a.next = a.next.next;
+  //   return head;
+  // }
+
+  let newHead = new ListNode(0);
+  let p1 = newHead, p2 = head;
+  p1.next = p2;
+  let distance = 1;
+  while (distance < n) {
+    p2 = p2.next;
+    distance++;
   }
-  if (step < n) {
-    return head;
-  } else if (a.next === head) {
-    return head.next;
-  } else {
-    a.next = a.next.next;
-    return head;
+  while (p2.next) {
+    p2 = p2.next;
+    p1 = p1.next;
   }
+  p1.next = p1.next.next;
+  return newHead.next;
 };
 // @lc code=end
 

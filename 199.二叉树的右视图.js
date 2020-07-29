@@ -17,20 +17,34 @@
  * @return {number[]}
  */
 var rightSideView = function(root) {
+  // if (!root) return [];
+  // let result = [];
+  // let queue = [root];
+  // while (queue.length) {
+  //   let node = queue.pop();
+  //   result.push(node.val);
+  //   let len = queue.length;
+  //   for (let i = 0; i < len; i++) {
+  //     let otherNode = queue.shift();
+  //     if (otherNode.left) queue.push(otherNode.left);
+  //     if (otherNode.right) queue.push(otherNode.right);
+  //   }
+  //   if (node.left) queue.push(node.left);
+  //   if (node.right) queue.push(node.right);
+  // }
+  // return result;
+
   if (!root) return [];
-  let result = [];
   let queue = [root];
+  let result = [];
   while (queue.length) {
-    let node = queue.pop();
-    result.push(node.val);
+    result.push(queue[0].val);
     let len = queue.length;
     for (let i = 0; i < len; i++) {
-      let otherNode = queue.shift();
-      if (otherNode.left) queue.push(otherNode.left);
-      if (otherNode.right) queue.push(otherNode.right);
+      let node = queue.shift();
+      if (node.right) queue.push(node.right);
+      if (node.left) queue.push(node.left);
     }
-    if (node.left) queue.push(node.left);
-    if (node.right) queue.push(node.right);
   }
   return result;
 };

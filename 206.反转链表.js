@@ -19,14 +19,13 @@
 var reverseList = function(head) {
   // Your runtime beats 98.99 % of javascript submissions
   // Your memory usage beats 77.52 % of javascript submissions (34.7 MB)
+  if (!head) return head;
   let firstNode = head;
-  let node = head;
+  let node = head.next;
   while (node) {
-    if (node !== firstNode) {
-      firstNode.next = node.next;
-      node.next = head;
-      head = node;
-    }
+    firstNode.next = node.next;
+    node.next = head;
+    head = node;
     node = firstNode.next;
   }
   return head;
