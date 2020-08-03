@@ -47,22 +47,32 @@
  * @return {number[]}
  */
 var findSubstring = function(s, words) {
-  if (s.length === 0 || words.length === 0) return [];
-  let len = s.length;
-  let wordLen = words[0].length;
-  let wordsLen = words.length * wordLen;
+  if (s.length === 0 || words.length === 0)
+    return [];
+  let sLen = s.length, wordLen = words[0].length;
+  let subLen = wordLen * words.length;
+  let counter = {};
   let result = [];
-  for (let i = 0; i + wordsLen <= len; i++) {
-    let j = i;
-    let tempWords = [...words];
-    while (tempWords.length) {
-      let currStr = s.slice(j, j + wordLen);
-      let index = tempWords.indexOf(currStr);
-      if (index === -1) break;
-      tempWords = tempWords.slice(0, index).concat(tempWords.slice(index + 1));
-      j += wordLen;
+  for (let i = 0; i < words.length; i++) {
+    if (counter[words[i]]) {
+      counter[words[i]]++;
+    } else {
+      counter[words[i]] = 1;
     }
-    if (tempWords.length === 0) {
+  }
+  for (let i = 0; i <= sLen - subLen; i++) {
+    let tempCounter = {...counter};
+    let flag = true;
+    for (let j = 0; j < words.length; j++) {
+      let tempStr = s.substring(i + j * wordLen, i + j * wordLen + wordLen);
+      if (tempCounter[tempStr]) {
+        tempCounter[tempStr]--;
+      } else {
+        flag = false;
+        break;
+      }
+    }
+    if (flag) {
       result.push(i);
     }
   }
